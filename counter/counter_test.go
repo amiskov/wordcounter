@@ -13,7 +13,7 @@ type suite struct {
 	expected int
 }
 
-func CheckoutDummy(w http.ResponseWriter, r *http.Request) {
+func handle(w http.ResponseWriter, r *http.Request) {
 	key := r.FormValue("id")
 	switch key {
 	case "0": // found 0
@@ -43,7 +43,7 @@ func TestWordFinder(t *testing.T) {
 	client := &http.Client{}
 	c := New(client, 5, 1*time.Second)
 
-	ts := httptest.NewServer(http.HandlerFunc(CheckoutDummy))
+	ts := httptest.NewServer(http.HandlerFunc(handle))
 	urls := []string{
 		ts.URL + "?id=0",
 		ts.URL + "?id=1",
